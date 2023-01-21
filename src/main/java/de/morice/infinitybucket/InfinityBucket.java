@@ -15,6 +15,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockMultiPlaceEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityAirChangeEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -24,7 +26,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 public final class InfinityBucket extends JavaPlugin implements Listener {
-    private final NamespacedKey key = new NamespacedKey(this, "iscustombucket");
+    private NamespacedKey key;
     private ItemStack infinityLavaBucket;
     private ItemStack infinityWaterBucket;
     private ItemStack infinityMilkBucket;
@@ -32,6 +34,7 @@ public final class InfinityBucket extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         Resource.bind(this);
+        this.key = new NamespacedKey(this, "iscustombucket");
         this.loadItems();
         this.registerCommands();
         this.registerListeners();
@@ -50,25 +53,50 @@ public final class InfinityBucket extends JavaPlugin implements Listener {
 
     private void loadItems() {
         this.infinityLavaBucket = ItemFactory.of(Material.LAVA_BUCKET)
-                .setName(ColorHelper.asHex("cc4628", "Infinite Lava Bucket"))
+                .setName(ColorAPI.process(ColorHelper.asHex("cc4628", "Infinite Lava Bucket")))
                 .addPersistance(this.key, PersistentDataType.STRING, "lava")
+                .addEnchant(ItemFactory.ItemEnchant.UNBREAKING, 1)
+                .addItemFlags(ItemFactory.IItemFlag.DONT_SHOW_ENCHANTS)
                 .build();
 
         this.infinityWaterBucket = ItemFactory.of(Material.WATER_BUCKET)
-                .setName(ColorHelper.asHex("45fda", "Infinite Water Bucket"))
+                .setName(ColorAPI.process(ColorHelper.asHex("d4f1f9", "Infinite Water Bucket")))
                 .addPersistance(this.key, PersistentDataType.STRING, "water")
+                .addEnchant(ItemFactory.ItemEnchant.UNBREAKING, 1)
+                .addItemFlags(ItemFactory.IItemFlag.DONT_SHOW_ENCHANTS)
                 .build();
 
         this.infinityMilkBucket = ItemFactory.of(Material.MILK_BUCKET)
-                .setName(ColorHelper.asHex("ddf3f5", "Infinite Milk Bucket"))
+                .setName(ColorAPI.process(ColorHelper.asHex("ddf3f5", "Infinite Milk Bucket")))
                 .addPersistance(this.key, PersistentDataType.STRING, "cum")
+                .addEnchant(ItemFactory.ItemEnchant.UNBREAKING, 1)
+                .addItemFlags(ItemFactory.IItemFlag.DONT_SHOW_ENCHANTS)
                 .build();
     }
 
     @EventHandler
-    public void onBlockPlace(final BlockPlaceEvent event) {
+    public void onConsumeMilk(final PlayerItemConsumeEvent event) {
+        final ItemStack item = event.getItem();
+        final ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            // This is a normal bucket
+            return;
+        }
+        final PersistentDataContainer container = meta.getPersistentDataContainer();
+        if (!container.has(this.key, PersistentDataType.STRING)) {
+            // normal bucket confirmed.
+            return;
+        }
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            event.getPlayer().getInventory().setItemInMainHand(this.infinityMilkBucket);
+        }, 1L);
+    }
+
+    @EventHandler
+    public void onBucketEmpty(final PlayerBucketEmptyEvent event) {
         final Player player = event.getPlayer();
-        final ItemStack itemStack = event.getItemInHand();
+        final ItemStack itemStack = player.getInventory().getItemInMainHand();
+        if (itemStack.getType().isAir()) return;
         final ItemMeta meta = itemStack.getItemMeta();
         if (meta == null) {
             // This is a normal bucket

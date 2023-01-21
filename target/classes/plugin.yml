@@ -1,5 +1,5 @@
 name: InfinityBucket
-version: '${project.version}'
+version: '1.0'
 main: de.morice.infinitybucket.InfinityBucket
 api-version: 1.19
 authors: [ morice ]
