@@ -1,0 +1,6 @@
+name: InfinityBucket
+version: '${project.version}'
+main: de.morice.infinitybucket.InfinityBucket
+api-version: 1.19
+authors: [ morice ]
+description: Adds Infinite Buckets to the game
