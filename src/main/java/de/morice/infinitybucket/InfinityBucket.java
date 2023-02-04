@@ -65,7 +65,9 @@ public final class InfinityBucket extends JavaPlugin implements Listener {
         final List<String> lavaBucketLores = this.messageConfig.getMessages("lore.lava-bucket");
 
         if (!lavaBucketLores.isEmpty()) {
-            infinityLavaBucketFactory.setLore(lavaBucketLores);
+            for (String s : lavaBucketLores) {
+                infinityLavaBucketFactory.addLore(ColorAPI.process(s));
+            }
         }
         this.infinityLavaBucket = infinityLavaBucketFactory.build();
 
@@ -77,7 +79,9 @@ public final class InfinityBucket extends JavaPlugin implements Listener {
         final List<String> waterBucketLores = this.messageConfig.getMessages("lore.water-bucket");
 
         if (!waterBucketLores.isEmpty()) {
-            infinityWaterBucketFactory.setLore(waterBucketLores);
+            for (String s : waterBucketLores) {
+                infinityWaterBucketFactory.addLore(ColorAPI.process(s));
+            }
         }
         this.infinityWaterBucket = infinityWaterBucketFactory.build();
 
@@ -89,7 +93,9 @@ public final class InfinityBucket extends JavaPlugin implements Listener {
         final List<String> milkBucketLores = this.messageConfig.getMessages("lore.milk-bucket");
 
         if (!milkBucketLores.isEmpty()) {
-            infinityMilkBucketFactory.setLore(milkBucketLores);
+            for (String s : milkBucketLores) {
+                infinityMilkBucketFactory.addLore(ColorAPI.process(s));
+            }
         }
 
         this.infinityMilkBucket = infinityMilkBucketFactory.build();
