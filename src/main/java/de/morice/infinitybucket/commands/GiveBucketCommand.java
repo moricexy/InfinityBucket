@@ -1,7 +1,7 @@
 package de.morice.infinitybucket.commands;
 
-import de.morice.bukkitutils.TabCompleteUtil;
 import de.morice.bukkitutils.gradient.ColorAPI;
+import de.morice.bukkitutils.util.TabCompleteUtil;
 import de.morice.infinitybucket.InfinityBucket;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -72,7 +72,7 @@ public class GiveBucketCommand implements CommandExecutor, TabCompleter {
                 receiving.getInventory().addItem(this.plugin.getInfinityWaterBucket());
                 operator.sendMessage(ColorAPI.process("&aThe player has received an Infinite Water Bucket!"));
             }
-            case "milk", "cum" -> {
+            case "milk" -> {
                 receiving.getInventory().addItem(this.plugin.getInfinityMilkBucket());
                 operator.sendMessage(ColorAPI.process("&aThe player has received an Infinite Milk " +
                         "Bucket!"));
