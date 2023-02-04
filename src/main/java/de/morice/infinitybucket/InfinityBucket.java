@@ -2,7 +2,6 @@ package de.morice.infinitybucket;
 
 import de.morice.bukkitutils.builder.ItemFactory;
 import de.morice.bukkitutils.gradient.ColorAPI;
-import de.morice.bukkitutils.gradient.ColorHelper;
 import de.morice.bukkitutils.resource.Resource;
 import de.morice.infinitybucket.commands.GiveBucketCommand;
 import de.morice.infinitybucket.utils.MessageConfig;
