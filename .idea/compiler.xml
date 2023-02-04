@@ -9,8 +9,5 @@
         <module name="InfinityBucket" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="InfinityBucket" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
