@@ -1,0 +1,9 @@
+names:
+  lava-bucket: "&6Infinite Lava Bucket"
+  water-bucket: "&9Infinite Water Bucket"
+  milk-bucket: "&fInfinite Milk Bucket"
+
+lore:
+  lava-bucket: []
+  water-bucket: []
+  milk-bucket: []
