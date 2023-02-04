@@ -3,6 +3,18 @@ names:
   water-bucket: "&9Infinite Water Bucket"
   milk-bucket: "&fInfinite Milk Bucket"
 
+messages:
+  not-enough-arguments: "&cYou didn't provide enough arguments!"
+  must-be-player-if-not-provided: "&cYou must be a player if you don't provide a player"
+  player-does-not-exist: "&cThis player doesn't exist!"
+  usage: "&7/&6givebucket &8(&6bucket&8) &7[&6playerName &8(optional&8)&7]"
+
+  received:
+    lava-bucket: "&aThe player has received an Infinite Lava Bucket!"
+    water-bucket: "&aThe player has received an Infinite Water Bucket!"
+    milk-bucket: "&aThe player has received an Infinite Milk Bucket!"
+    invalid: "&cThis bucket does not exist!"
+
 lore:
   lava-bucket: []
   water-bucket: []

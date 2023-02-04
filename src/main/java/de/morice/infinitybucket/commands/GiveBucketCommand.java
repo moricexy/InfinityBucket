@@ -32,13 +32,14 @@ public class GiveBucketCommand implements CommandExecutor, TabCompleter {
 
         switch (args.length) {
             case 0 -> {
-                sender.sendMessage(ColorAPI.process("&cYou didn't provide enough arguments!"));
+                sender.sendMessage(ColorAPI.process(this.plugin.getMessageConfig()
+                        .getMessage("messages.not-enough-arguments")));
             }
             case 1 -> {
                 // only bucket
                 if (!(sender instanceof Player player)) {
-                    sender.sendMessage(ColorAPI.process("&cYou must be a player if you don't provide " +
-                            "a player"));
+                    sender.sendMessage(ColorAPI.process(this.plugin.getMessageConfig()
+                            .getMessage("messages.must-be-player-if-not-provided")));
                     return true;
                 }
 
@@ -49,14 +50,15 @@ public class GiveBucketCommand implements CommandExecutor, TabCompleter {
                 final String targetName = args[1];
                 final Player target = Bukkit.getPlayerExact(targetName);
                 if (target == null) {
-                    sender.sendMessage(ColorAPI.process("&cThis player doesn't exist!"));
+                    sender.sendMessage(ColorAPI.process(this.plugin.getMessageConfig()
+                            .getMessage("messages.player-does-not-exist")));
                     return true;
                 }
                 this.doBucketAction(target, sender, bucket);
             }
             default -> {
-                sender.sendMessage(ColorAPI.process("&7/&6givebucket &8(&6bucket&8) &7[&6playerName " +
-                        "&8(optional&8)&7]"));
+                sender.sendMessage(ColorAPI.process(this.plugin.getMessageConfig()
+                        .getMessage("messages.usage")));
             }
         }
         return true;
@@ -66,19 +68,22 @@ public class GiveBucketCommand implements CommandExecutor, TabCompleter {
         switch (arg.toLowerCase()) {
             case "lava" -> {
                 receiving.getInventory().addItem(this.plugin.getInfinityLavaBucket());
-                operator.sendMessage(ColorAPI.process("&aThe player has received an Infinite Lava Bucket!"));
+                operator.sendMessage(ColorAPI.process(this.plugin.getMessageConfig()
+                        .getMessage("messages.received.lava-bucket")));
             }
             case "water" -> {
                 receiving.getInventory().addItem(this.plugin.getInfinityWaterBucket());
-                operator.sendMessage(ColorAPI.process("&aThe player has received an Infinite Water Bucket!"));
+                operator.sendMessage(ColorAPI.process(this.plugin.getMessageConfig()
+                        .getMessage("messages.received.water-bucket")));
             }
             case "milk" -> {
                 receiving.getInventory().addItem(this.plugin.getInfinityMilkBucket());
-                operator.sendMessage(ColorAPI.process("&aThe player has received an Infinite Milk " +
-                        "Bucket!"));
+                operator.sendMessage(ColorAPI.process(this.plugin.getMessageConfig()
+                        .getMessage("messages.received.milk-bucket")));
             }
             default -> {
-                operator.sendMessage(ColorAPI.process("&cThis bucket does not exist!"));
+                operator.sendMessage(ColorAPI.process(this.plugin.getMessageConfig()
+                        .getMessage("messages.received.invalid")));
             }
         };
     }
